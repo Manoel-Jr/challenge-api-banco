@@ -13,4 +13,6 @@ public interface ContaService {
 	Conta buscarPorAgenciaNumroConta(String agencia, String numeroConta);
 	
 	void transferencia(Long contaOrigemId,Long contaDestinoId, double valor);
+	
+	void deposito(Conta conta , double valor);
 }

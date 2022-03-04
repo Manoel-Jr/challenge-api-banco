@@ -53,4 +53,13 @@ public class ContaServiceImpl implements ContaService {
 		contaRepository.save(contaDestino);
 	}
 
+	@Override
+	public void deposito(Conta conta, double valor) {
+		Conta cont = contaRepository.findById(conta.getId()).get();
+		cont.setSaldo(cont.getSaldo() + valor);
+		contaRepository.save(cont);
+	}
+	
+	
+
 }
