@@ -7,8 +7,6 @@ import br.com.org.banco.entity.Conta;
 
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Long>{
-
-	//public boolean existisByContaAndAngencia(String numeroConta, String agencia);
 	
 	public Conta findByAgencia(String agencia);
 	
@@ -16,4 +14,8 @@ public interface ContaRepository extends JpaRepository<Conta, Long>{
 	
 	Conta findByNumeroConta(String numeroConta);
 	
+	boolean existsByAgencia(String agencia);
+	
+	boolean existsByNumeroConta(String numeroConta);
+		
 }

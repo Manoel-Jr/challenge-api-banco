@@ -1,7 +1,6 @@
 package br.com.org.banco.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,5 +36,4 @@ public class Conta implements Serializable{
 	
 	private double saldo;
 	
-	private LocalDate data;
 }

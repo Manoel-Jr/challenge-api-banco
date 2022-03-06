@@ -4,16 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.org.banco.entity.Conta;
+import br.com.org.banco.exception.ContaExistenteException;
 import br.com.org.banco.repository.ContaRepository;
 
 @Service
 public class ContaServiceImpl implements ContaService {
 
 	@Autowired
-	public ContaRepository contaRepository;
-
+	private ContaRepository contaRepository;
+	
+	@Autowired
+	private ExtratoService extratoService;
+	
 	@Override
 	public Conta criarConta(Conta conta) {
+		boolean hasAgencia = contaRepository.existsByAgencia(conta.getAgencia());
+		boolean hasNumeroConta = contaRepository.existsByNumeroConta(conta.getNumeroConta());
+		if(hasAgencia || hasNumeroConta) {
+			 throw new ContaExistenteException();
+		}
 		return contaRepository.save(conta);
 	}
 
@@ -33,6 +42,7 @@ public class ContaServiceImpl implements ContaService {
 		Conta contaSalva = contaRepository.findById(conta.getId()).get();
 		contaSalva.setSaldo(contaSalva.getSaldo() - valor);
 		contaRepository.save(contaSalva);
+		extratoService.gerarExtratoSaque(contaSalva, valor);
 	}
 
 	public Conta buscarPorAgenciaNumroConta(String agencia, String numeroConta) {
@@ -59,7 +69,6 @@ public class ContaServiceImpl implements ContaService {
 		cont.setSaldo(cont.getSaldo() + valor);
 		contaRepository.save(cont);
 	}
-	
 	
 
 }
