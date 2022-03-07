@@ -61,4 +61,6 @@ public class Extrato implements Serializable {
 		this.valor = valor;
 		this.tipoTransacao = tipo;
 	}
+	
+	
 }

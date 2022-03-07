@@ -9,7 +9,7 @@ import br.com.org.banco.enums.TransacaoEnum;
 import br.com.org.banco.repository.ExtratoRepository;
 
 @Service
-public class ExtratoServiceImpl implements ExtratoService{
+public class ExtratoServiceImpl implements ExtratoService {
 
 	@Autowired
 	private ExtratoRepository extratoRepository;
@@ -17,9 +17,15 @@ public class ExtratoServiceImpl implements ExtratoService{
 	@Override
 	public void gerarExtratoSaque(Conta conta, double valor) {
 		String descricao = "Saque R$ " + valor + ". Novo Saldo: " + conta.getSaldo();
-		Extrato extrato = new Extrato( conta, TransacaoEnum.SAQUE, descricao, valor);
+		Extrato extrato = new Extrato(conta, TransacaoEnum.SAQUE, descricao, valor);
 		extratoRepository.save(extrato);
 	}
-	
-	
+
+	@Override
+	public void gerarExtratoDeposito(Conta conta, double valor) {
+		String descricao = " Feito Saque na conta " + conta.getNumeroConta() + " Saldo e " + conta.getSaldo();
+		Extrato extrato = new Extrato(conta, TransacaoEnum.DEPOSITO, descricao, valor);
+		extratoRepository.save(extrato);
+	}
+
 }

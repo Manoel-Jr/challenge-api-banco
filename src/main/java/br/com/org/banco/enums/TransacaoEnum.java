@@ -12,8 +12,7 @@ public enum TransacaoEnum {
 	SAQUE(1),
 	DEPOSITO(2),
 	TRANSFERENCIA(3),
-	CONSULTAR_SALDO(4),
-	CONSULTAR_EXTRATO(5);
+	CONSULTAR_SALDO(4);
 	
 	
 	private int codigo;

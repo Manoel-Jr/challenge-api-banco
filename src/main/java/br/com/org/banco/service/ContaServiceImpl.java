@@ -32,10 +32,7 @@ public class ContaServiceImpl implements ContaService {
 		if (conta != null) {
 			return conta;
 		}
-		System.out.println("conta inexistente!");
-
-		return null;
-
+		throw new ContaExistenteException();
 	}
 
 	public void saque(Conta conta, double valor) {
@@ -68,7 +65,14 @@ public class ContaServiceImpl implements ContaService {
 		Conta cont = contaRepository.findById(conta.getId()).get();
 		cont.setSaldo(cont.getSaldo() + valor);
 		contaRepository.save(cont);
+		extratoService.gerarExtratoDeposito(conta, valor);
 	}
-	
+
+	@Override
+	public double consultarSaldo(Conta conta) {
+		Conta cont = contaRepository.findByAgenciaAndNumeroConta(conta.getAgencia(),conta.getNumeroConta());
+		return cont.getSaldo();
+	}
+
 
 }
