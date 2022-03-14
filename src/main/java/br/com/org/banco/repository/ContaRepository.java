@@ -17,5 +17,7 @@ public interface ContaRepository extends JpaRepository<Conta, Long>{
 	boolean existsByAgencia(String agencia);
 	
 	boolean existsByNumeroConta(String numeroConta);
+	
+	double findBySaldo(double saldo);
 		
 }

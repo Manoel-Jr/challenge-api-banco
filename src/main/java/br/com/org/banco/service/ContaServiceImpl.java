@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.org.banco.entity.Conta;
 import br.com.org.banco.exception.ContaExistenteException;
+import br.com.org.banco.exception.ContaInvalidaException;
 import br.com.org.banco.repository.ContaRepository;
 
 @Service
@@ -69,10 +70,18 @@ public class ContaServiceImpl implements ContaService {
 	}
 
 	@Override
-	public double consultarSaldo(Conta conta) {
-		Conta cont = contaRepository.findByAgenciaAndNumeroConta(conta.getAgencia(),conta.getNumeroConta());
-		return cont.getSaldo();
+	public Conta buscarPorId(Long id) {
+		Conta conta = contaRepository.findById(id).get();
+		return conta;
 	}
 
-
+	@Override
+	public double consultarSaldo(String agencia, String numeroConta) {
+		Conta conta = contaRepository.findByAgenciaAndNumeroConta(agencia, numeroConta);
+		if(conta != null) {
+			extratoService.gerarExtratoConsultarSaldo(conta);
+			return conta.getSaldo();
+		}
+		throw new ContaInvalidaException();
+	}
 }

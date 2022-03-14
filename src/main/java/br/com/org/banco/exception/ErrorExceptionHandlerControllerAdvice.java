@@ -1,6 +1,7 @@
 package br.com.org.banco.exception;
 
 import static br.com.org.banco.utils.Constantes.CONTA_EXISTENTE;
+import static br.com.org.banco.utils.Constantes.CONTA_INVALIDA;
 import static br.com.org.banco.utils.Constantes.TRANSACAO_INVALIDA;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,13 @@ public class ErrorExceptionHandlerControllerAdvice {
 	public ResponseEntity<Object> ContaExistente(){
 		HandlerGeneric generic = new HandlerGeneric(getTimesTamp(),
 				HttpStatus.BAD_REQUEST.value(),CONTA_EXISTENTE);
+		return new ResponseEntity<>(generic, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ContaExistenteException.class)
+	public ResponseEntity<Object> Conta(){
+		HandlerGeneric generic = new HandlerGeneric(getTimesTamp(),
+				HttpStatus.BAD_REQUEST.value(),CONTA_INVALIDA);
 		return new ResponseEntity<>(generic, HttpStatus.BAD_REQUEST);
 	}
 	

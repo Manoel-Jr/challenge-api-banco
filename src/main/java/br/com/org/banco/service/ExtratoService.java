@@ -8,4 +8,5 @@ public interface ExtratoService {
 	
 	void gerarExtratoDeposito(Conta conta, double valor);
 	
+	void gerarExtratoConsultarSaldo(Conta conta);
 }

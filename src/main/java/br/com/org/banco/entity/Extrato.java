@@ -62,5 +62,9 @@ public class Extrato implements Serializable {
 		this.tipoTransacao = tipo;
 	}
 	
-	
+	public Extrato(Conta conta, TransacaoEnum tipo, String descricao) {
+		this.conta = conta;
+		this.descricao = descricao;
+		this.tipoTransacao = tipo;
+	}
 }

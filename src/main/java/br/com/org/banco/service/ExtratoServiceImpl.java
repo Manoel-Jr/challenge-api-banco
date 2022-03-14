@@ -13,6 +13,7 @@ public class ExtratoServiceImpl implements ExtratoService {
 
 	@Autowired
 	private ExtratoRepository extratoRepository;
+	
 
 	@Override
 	public void gerarExtratoSaque(Conta conta, double valor) {
@@ -25,6 +26,14 @@ public class ExtratoServiceImpl implements ExtratoService {
 	public void gerarExtratoDeposito(Conta conta, double valor) {
 		String descricao = " Feito Saque na conta " + conta.getNumeroConta() + " Saldo e " + conta.getSaldo();
 		Extrato extrato = new Extrato(conta, TransacaoEnum.DEPOSITO, descricao, valor);
+		extratoRepository.save(extrato);
+	}
+
+	@Override
+	public void gerarExtratoConsultarSaldo(Conta conta) {
+		String descricao = " Usuario " + conta.getNomeUsuario() +
+				" Realizou uma consulta de Saldo  em sua conta " + conta.getNumeroConta();
+		Extrato extrato = new Extrato(conta, TransacaoEnum.CONSULTAR_SALDO,descricao);
 		extratoRepository.save(extrato);
 	}
 
