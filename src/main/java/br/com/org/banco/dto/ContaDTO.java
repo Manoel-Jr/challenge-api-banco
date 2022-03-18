@@ -4,11 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class ContaDTO {
-
-	//private Long id;
 	
 	private String agencia;
 	
 	private String numeroConta;
 	
+	//private String nomeUsuario;
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.org.banco.dto.ContaDTO;
 import br.com.org.banco.dto.DepositoDTO;
 import br.com.org.banco.dto.SaqueDTO;
 import br.com.org.banco.dto.TransferenciaDTO;
@@ -63,10 +62,10 @@ public class ContaRest {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deposito realizado com sucesso!");
 	}
 
-	@PostMapping("/consultar-saldo")
-	public ResponseEntity<String> consultarSaldo(@RequestBody ContaDTO dto) {
-		Conta conta = contaService.buscarPorAgenciaNumroConta(dto.getAgencia(), dto.getNumeroConta());
-		contaService.consultarSaldo(conta.getAgencia(), conta.getNumeroConta());
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body("Consulta Realizada com Sucesso!");
+	@GetMapping("/consultar-saldo")
+	public ResponseEntity<Double> consultarSaldo(@RequestBody Conta cont){
+		Conta conta = contaService.buscarPorAgenciaNumroConta(cont.getAgencia(),cont.getNumeroConta());
+		contaService.consultarSaldo(conta);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(conta.getSaldo());
 	}
 }

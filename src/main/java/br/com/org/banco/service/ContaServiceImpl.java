@@ -59,6 +59,7 @@ public class ContaServiceImpl implements ContaService {
 		contaDestino.setSaldo(contaDestino.getSaldo() + valor);
 		contaRepository.save(contaOrigem);
 		contaRepository.save(contaDestino);
+		extratoService.gerarExtratoTransferencia(contaOrigemId, contaDestinoId, valor);
 	}
 
 	@Override
@@ -76,12 +77,13 @@ public class ContaServiceImpl implements ContaService {
 	}
 
 	@Override
-	public double consultarSaldo(String agencia, String numeroConta) {
-		Conta conta = contaRepository.findByAgenciaAndNumeroConta(agencia, numeroConta);
-		if(conta != null) {
-			extratoService.gerarExtratoConsultarSaldo(conta);
-			return conta.getSaldo();
+	public double consultarSaldo(Conta conta) {
+		Conta cont = contaRepository.findByAgenciaAndNumeroConta(conta.getAgencia(), conta.getNumeroConta());
+		if(cont != null) {
+			return cont.getSaldo();
 		}
 		throw new ContaInvalidaException();
 	}
+
+	
 }

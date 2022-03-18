@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import br.com.org.banco.entity.Conta;
 import br.com.org.banco.entity.Extrato;
 import br.com.org.banco.enums.TransacaoEnum;
+import br.com.org.banco.repository.ContaRepository;
 import br.com.org.banco.repository.ExtratoRepository;
 
 @Service
@@ -13,6 +14,9 @@ public class ExtratoServiceImpl implements ExtratoService {
 
 	@Autowired
 	private ExtratoRepository extratoRepository;
+	
+	@Autowired
+	private ContaRepository contaRepository;
 	
 
 	@Override
@@ -29,12 +33,14 @@ public class ExtratoServiceImpl implements ExtratoService {
 		extratoRepository.save(extrato);
 	}
 
-	@Override
-	public void gerarExtratoConsultarSaldo(Conta conta) {
-		String descricao = " Usuario " + conta.getNomeUsuario() +
-				" Realizou uma consulta de Saldo  em sua conta " + conta.getNumeroConta();
-		Extrato extrato = new Extrato(conta, TransacaoEnum.CONSULTAR_SALDO,descricao);
-		extratoRepository.save(extrato);
+	public void gerarExtratoTransferencia(Long idContaOrigem, Long idContaDestino, double valor) {
+		Conta contaOrigem = contaRepository.findById(idContaOrigem).get();
+		Conta contaDestino = contaRepository.findById(idContaDestino).get();
+		String descricao = " Realizado Transferencia do valor " + valor + " da conta " 
+				+ contaOrigem.getNumeroConta() + " Para conta " 
+				+ contaDestino.getNumeroConta();
+			Extrato extrat = new Extrato(contaDestino,TransacaoEnum.TRANSFERENCIA, descricao, valor);
+			extratoRepository.save(extrat);
 	}
 
 }

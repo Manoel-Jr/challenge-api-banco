@@ -33,8 +33,8 @@ public class ErrorExceptionHandlerControllerAdvice {
 		return new ResponseEntity<>(generic, HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(ContaExistenteException.class)
-	public ResponseEntity<Object> Conta(){
+	@ExceptionHandler(ContaInvalidaException.class)
+	public ResponseEntity<Object> ContaInvalida(){
 		HandlerGeneric generic = new HandlerGeneric(getTimesTamp(),
 				HttpStatus.BAD_REQUEST.value(),CONTA_INVALIDA);
 		return new ResponseEntity<>(generic, HttpStatus.BAD_REQUEST);

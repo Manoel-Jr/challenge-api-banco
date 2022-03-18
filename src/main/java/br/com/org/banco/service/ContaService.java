@@ -16,7 +16,8 @@ public interface ContaService {
 	
 	void deposito(Conta conta , double valor);
 	
-	double consultarSaldo(String agencia, String numeroConta);
+	double consultarSaldo(Conta conta);
+
 	
 	Conta buscarPorId(Long id);
 	

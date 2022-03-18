@@ -8,5 +8,5 @@ public interface ExtratoService {
 	
 	void gerarExtratoDeposito(Conta conta, double valor);
 	
-	void gerarExtratoConsultarSaldo(Conta conta);
+	void gerarExtratoTransferencia(Long idContaOrigem, Long idContaDestino, double valor);
 }
